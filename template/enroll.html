@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Enroll Student | MessToken</title>
+</head>
+<body>
+    <h1>Enroll a Student</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category, message in messages %}
+        <p>{{ message }}</p>
+      {% endfor %}
+    {% endwith %}
+
+    <form action="/enroll" method="POST">
+        <label for="roll_no">Roll Number</label>
+        <input id="roll_no" type="number" name="roll_no" required>
+
+        <br><br>
+
+        <label for="name">Student Name</label>
+        <input id="name" type="text" name="name" required>
+
+        <br><br>
+
+        <label for="assigned_mess">Assigned Mess</label>
+        <select id="assigned_mess" name="assigned_mess" required>
+            <option value="">Select mess</option>
+            <option value="A">Mess A</option>
+            <option value="B">Mess B</option>
+        </select>
+
+        <br><br>
+
+        <button type="submit">Enroll Student</button>
+    </form>
+
+    <p><a href="/">Back to Home</a></p>
+</body>
+</html>

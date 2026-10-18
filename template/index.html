@@ -1,0 +1,203 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MessToken | Student Portal</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f3f6f4;
+            color: #24352b;
+        }
+
+        header {
+            background: #176b45;
+            color: white;
+            padding: 22px 8%;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        header p {
+            margin-bottom: 0;
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            padding: 15px 8%;
+            background: white;
+            border-bottom: 1px solid #ddd;
+        }
+
+        nav a {
+            color: #176b45;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        main {
+            max-width: 650px;
+            margin: 40px auto;
+            padding: 0 18px;
+        }
+
+        .card {
+            background: white;
+            padding: 28px;
+            border-radius: 14px;
+            box-shadow: 0 4px 18px #0000000d;
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        label {
+            display: block;
+            margin: 18px 0 7px;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5ce;
+            border-radius: 7px;
+            font-size: 16px;
+            background: white;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 24px;
+            padding: 13px;
+            background: #176b45;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #105536;
+        }
+
+        .message {
+            padding: 12px;
+            margin-bottom: 12px;
+            border-radius: 7px;
+            overflow-wrap: anywhere;
+        }
+
+        .success {
+            background: #e0f5e8;
+            color: #145c34;
+        }
+
+        .error {
+            background: #fde8e7;
+            color: #922b21;
+        }
+
+        .info {
+            color: #617067;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #617067;
+            font-size: 13px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>MessToken</h1>
+        <p>Simple, secure meal-token management</p>
+    </header>
+
+    <nav>
+        <a href="/">Student Portal</a>
+        <a href="/enroll">Enroll Student</a>
+        <a href="/staff">Staff Portal</a>
+        <a href="/stats">Statistics</a>
+    </nav>
+
+    <main>
+        <section class="card">
+            <h2>Get Your Meal Token</h2>
+            <p class="info">
+                Enter your roll number and select your assigned mess,
+                meal, and date to request a token.
+            </p>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% for category, message in messages %}
+                    <div class="message {{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endwith %}
+
+            <form action="/get-token" method="POST">
+                <label for="roll_no">Roll Number</label>
+                <input
+                    id="roll_no"
+                    type="number"
+                    name="roll_no"
+                    required
+                >
+
+                <label for="selected_mess">Select Mess</label>
+                <select id="selected_mess" name="selected_mess" required>
+                    <option value="">Choose your mess</option>
+                    <option value="A">Mess A</option>
+                    <option value="B">Mess B</option>
+                </select>
+
+                <label for="meal_type">Meal</label>
+                <select id="meal_type" name="meal_type" required>
+                    <option value="">Choose a meal</option>
+                    <option value="breakfast">Breakfast</option>
+                    <option value="lunch">Lunch</option>
+                    <option value="dinner">Dinner</option>
+                </select>
+
+                <label for="meal_date">Meal Date</label>
+                <input
+                    id="meal_date"
+                    type="date"
+                    name="meal_date"
+                    value="{{ today }}"
+                    min="{{ today }}"
+                    required
+                >
+
+                <button type="submit">Get My Token</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        MessToken — College Mess Token Management Prototype
+    </footer>
+</body>
+</html>

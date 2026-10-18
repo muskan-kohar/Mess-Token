@@ -1,0 +1,30 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff - MessToken</title>
+</head>
+<body>
+    <h1>Staff Token Verification</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+            <p><strong>{{ category }}:</strong> {{ message }}</p>
+        {% endfor %}
+    {% endwith %}
+
+    <form action="/staff" method="POST">
+        <label for="token_code">Enter token code:</label>
+        <input
+            id="token_code"
+            name="token_code"
+            required
+        >
+        <button type="submit">Redeem Token</button>
+    </form>
+
+    <p><a href="/">Home</a></p>
+</body>
+</html>
